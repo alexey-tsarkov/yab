@@ -1,7 +1,6 @@
 package book
 
 import (
-	"github.com/alexey-tsarkov/yab/audio"
 	"github.com/alexey-tsarkov/yab/author"
 	"github.com/alexey-tsarkov/yab/illustrator"
 	"github.com/alexey-tsarkov/yab/publisher"
@@ -9,14 +8,10 @@ import (
 	"github.com/alexey-tsarkov/yab/translator"
 )
 
-type UUID string
-
-type Lang string
-
 type Book struct {
-	UUID             UUID                       `json:"uuid"`
+	UUID             string                     `json:"uuid"`
 	Title            string                     `json:"title"`
-	Language         Lang                       `json:"language"`
+	Language         string                     `json:"language"`
 	Year             int                        `json:"original_year"`
 	Annotation       string                     `json:"annotation"`
 	Authors          []*author.Author           `json:"authors_objects"`
@@ -25,7 +20,7 @@ type Book struct {
 	Illustrators     []*illustrator.Illustrator `json:"illustrators"`
 	Pages            int                        `json:"paper_pages"`
 	Topics           []*topic.Topic             `json:"topics"`
-	LinkedAudioBooks []audio.UUID               `json:"linked_audiobook_uuids"`
+	LinkedAudioBooks []string                   `json:"linked_audiobook_uuids"`
 }
 
 func (b *Book) String() string {

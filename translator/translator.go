@@ -1,13 +1,9 @@
 package translator
 
-type UUID string
-
-type Lang string
-
 type Translator struct {
-	UUID       UUID   `json:"uuid"`
+	UUID       string `json:"uuid"`
 	Name       string `json:"name"`
-	Locale     Lang   `json:"locale"`
+	Locale     string `json:"locale"`
 	WorksCount int    `json:"works_count"`
 }
 
