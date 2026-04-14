@@ -1,4 +1,4 @@
-package audio
+package audiobook
 
 import (
 	"github.com/alexey-tsarkov/yab/author"
@@ -8,7 +8,7 @@ import (
 	"github.com/alexey-tsarkov/yab/translator"
 )
 
-type Book struct {
+type AudioBook struct {
 	UUID        string                   `json:"uuid"`
 	Title       string                   `json:"title"`
 	Language    string                   `json:"language"`
@@ -23,6 +23,6 @@ type Book struct {
 	LinkedBooks []string                 `json:"linked_book_uuids"`
 }
 
-func (b *Book) String() string {
-	return b.Title
+func (ab *AudioBook) String() string {
+	return ab.Title
 }
