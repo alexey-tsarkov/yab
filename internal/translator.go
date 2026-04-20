@@ -1,4 +1,4 @@
-package translator
+package internal
 
 type Translator struct {
 	UUID       string `json:"uuid"`

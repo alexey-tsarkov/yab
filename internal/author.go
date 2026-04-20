@@ -1,4 +1,4 @@
-package author
+package internal
 
 type UUID string
 

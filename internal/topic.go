@@ -1,4 +1,4 @@
-package topic
+package internal
 
 type Topic struct {
 	UUID     string `json:"uuid"`
