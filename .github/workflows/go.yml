@@ -2,13 +2,13 @@ name: Go
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
 
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -16,10 +16,39 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.26'
+        go-version: '1.26.x'
 
-    - name: Build
-      run: go build -ldflags "-X 'main.version=$GITHUB_REF_NAME'" -v ./cmd/...
+    - name: Install dependencies
+      run: go get .
 
     - name: Test
       run: go test -v ./...
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-os: [ windows ]
+        go-arch: [ amd64 ]
+    needs: [ test ]
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.26.x'
+
+    - name: Install dependencies
+      run: go get .
+
+    - name: Build
+      env:
+        GOOS: ${{ matrix.go-os }}
+        GOARCH: ${{ matrix.go-arch }}
+      run: go build -ldflags "-X 'main.version=$GITHUB_REF_NAME'" -v ./cmd/...
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: yab-${{ matrix.go-os }}-${{ matrix.go-arch }}
+        path: yab.exe
